@@ -1,16 +1,39 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
+  <q-page>
+    <logo class="q-mb-xl q-mt-lg" />
+    <div class="row q-col-gutter-md">
+      <div
+        v-for="category in categories"
+        :key="category.title"
+        class="col-6"
+      >
+        <category :category="category" />
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+  import { defineComponent, computed } from 'vue'
+  import Category from "components/Category"
+  import { useStore } from 'vuex'
+  import Logo from 'components/Logo'
 
-export default defineComponent({
-  name: 'PageIndex'
-})
+  export default defineComponent({
+    name: 'PageIndex',
+    components: {
+      Logo,
+      Category,
+    },
+
+    setup() {
+      const store = useStore()
+      const categories = computed(() => store.state.products.categories)
+
+      return {
+        categories,
+      }
+    },
+  })
 </script>
+

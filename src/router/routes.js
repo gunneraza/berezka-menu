@@ -1,11 +1,17 @@
-
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    redirect: {
+      name: 'categories',
+    },
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
+      {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('pages/Index.vue'),
+      },
+    ],
   },
 
   // Always leave this as last one,
